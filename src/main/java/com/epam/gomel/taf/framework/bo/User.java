@@ -1,42 +1,21 @@
 package com.epam.gomel.taf.framework.bo;
 
-import com.epam.gomel.taf.framework.factory.Configuration;
+import com.epam.gomel.taf.framework.factory.Constants;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@ToString
 public class User {
     private String login;
     private String password;
 
-    public User(String login, String password) {
-        this.login = login;
-        this.password = password;
-    }
-
     public User() {
-        setLogin(Configuration.USER_LOGIN);
-        setPassword(Configuration.USER_PASSWORD);
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "login='" + login + '\'' +
-                ", password='" + password + '\'' +
-                '}';
+        setLogin(Constants.USER_LOGIN);
+        setPassword(Constants.USER_PASSWORD);
     }
 }

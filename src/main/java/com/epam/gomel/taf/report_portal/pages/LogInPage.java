@@ -1,6 +1,6 @@
 package com.epam.gomel.taf.report_portal.pages;
 
-import com.epam.gomel.taf.framework.factory.*;
+import com.epam.gomel.taf.framework.factory.Constants;
 import org.openqa.selenium.By;
 
 import static com.epam.gomel.taf.framework.ui.Browser.getInstance;
@@ -11,7 +11,7 @@ public class LogInPage {
     private final By confirmButton = By.xpath("//button[@type='submit' and text()='Login']");
 
     public LogInPage openPage() {
-        getInstance().get(Configuration.RP_URL_LOG_IN);
+        getInstance().get(Constants.RP_URL_LOG_IN);
         return this;
     }
 
