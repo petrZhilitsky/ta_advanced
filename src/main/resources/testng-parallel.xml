@@ -7,19 +7,13 @@
     <test name="ReportPortal_parallel_test_1">
         <classes>
             <class name="com.epam.gomel.taf.test.ReportPortalTest">
-                <methods>
-                    <include name="checkLoggedInReportPortal"/>
-                    <include name="checkNavigationMenuItems"/>
-                </methods>
             </class>
         </classes>
     </test>
 
     <test name="ReportPortal_parallel_test_2">
         <classes>
-            <class name="com.epam.gomel.taf.test.ReportPortalTest">
-                <methods>
-                </methods>
+            <class name="com.epam.gomel.taf.test.SmokeTest">
             </class>
         </classes>
     </test>

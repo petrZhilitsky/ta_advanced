@@ -5,7 +5,7 @@ import com.epam.gomel.taf.framework.factory.UserFactory;
 import com.epam.gomel.taf.framework.ui.Browser;
 import com.epam.gomel.taf.framework.utils.TestListener;
 import com.epam.gomel.taf.report_portal.service.LogInService;
-import com.epam.gomel.taf.report_portal.service.MainService;
+import com.epam.gomel.taf.report_portal.service.NavigationBarService;
 import com.epam.reportportal.testng.ReportPortalTestNGListener;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -18,7 +18,7 @@ import static org.testng.Assert.assertTrue;
 public class ReportPortalTest {
     private User user = UserFactory.defaultUser();
     private LogInService logInService = new LogInService();
-    private MainService mainService = new MainService();
+    private NavigationBarService navigationBarService = new NavigationBarService();
 
     @BeforeClass
     public void logInUser() {
@@ -26,17 +26,13 @@ public class ReportPortalTest {
     }
 
     @Test
-    public void checkLoggedInReportPortal() {
-        assertTrue(mainService.isLoggedIn(user.getLogin()), "User logging in failed");
-    }
-
-    @Test
     public void checkNavigationMenuItems() {
-        assertTrue(mainService.isMainMenuItemsWorksCorrect(), "Main Menu items navigation failed");
+        assertTrue(navigationBarService.isMainMenuItemsWorksCorrect(), "Main Menu items navigation failed");
     }
 
     @AfterClass(alwaysRun = true)
-    public void closeBrowser() {
+    public void logoutAndCloseBrowser() {
+        navigationBarService.logout(user.getLogin());
         Browser.getInstance().stopBrowser();
     }
 }

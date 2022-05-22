@@ -4,8 +4,11 @@ import org.openqa.selenium.By;
 
 import static com.epam.gomel.taf.framework.ui.Browser.getInstance;
 
-public class MainPage {
+public class NavigationBar {
+    //notifications
     private final By loginSuccessNotification = By.xpath("//div[@id='notification-root']//*[text()='Signed in successfully']");
+    private final By logoutSuccessNotification = By.xpath("//div[@id='notification-root']//*[text()='You have been logged out']");
+    private final By logoinFailNotification = By.xpath("//div[@id='notification-root']//*[contains(text(),'Bad credentials')]");
     //navigation sidebar menu
     private final By linkDashboards = By.xpath("//a[@href='#default_personal/dashboard']");
     private final By linkLaunches = By.xpath("//a[@href='#default_personal/launches']");
@@ -13,34 +16,49 @@ public class MainPage {
     private final By linkDebug = By.xpath("//a[@href='#default_personal/userdebug/all']");
     private final By linkMembers = By.xpath("//a[@href='#default_personal/members']");
     private final By linkSettings = By.xpath("//a[@href='#default_personal/settings']");
+    private final By userAvatar = By.xpath("//img[@alt='avatar']");
+    private final By logoutButton = By.xpath("//div[text()='Logout']");
 
-    public MainPage navigateDashboards() {
+    public NavigationBar navigateDashboards() {
         getInstance().click(linkDashboards);
         return this;
     }
 
-    public MainPage navigateLaunches() {
+    public NavigationBar navigateLaunches() {
         getInstance().click(linkLaunches);
         return this;
     }
 
-    public MainPage navigateFilters() {
+    public NavigationBar navigateFilters() {
         getInstance().click(linkFilters);
         return this;
     }
 
-    public MainPage navigateDebug() {
+    public NavigationBar navigateDebug() {
         getInstance().click(linkDebug);
         return this;
     }
 
-    public MainPage navigateMembers() {
+    public NavigationBar navigateMembers() {
         getInstance().click(linkMembers);
         return this;
     }
 
-    public MainPage navigateSettings() {
+    public NavigationBar navigateSettings() {
         getInstance().click(linkSettings);
+        return this;
+    }
+
+    public NavigationBar clickUserAvatar() {
+        if (getInstance().isVisible(loginSuccessNotification)) {
+            getInstance().click(loginSuccessNotification);
+        }
+        getInstance().click(userAvatar);
+        return this;
+    }
+
+    public NavigationBar clickLogout() {
+        getInstance().click(logoutButton);
         return this;
     }
 
@@ -66,4 +84,11 @@ public class MainPage {
         return getInstance().isVisible(loginSuccessNotification);
     }
 
+    public boolean logOutCheck() {
+        return getInstance().isVisible(logoutSuccessNotification);
+    }
+
+    public boolean logInFailCheck() {
+        return getInstance().isVisible(logoinFailNotification);
+    }
 }
