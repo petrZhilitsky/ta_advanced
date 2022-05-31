@@ -2,9 +2,9 @@ package com.epam.gomel.taf.report_portal.pages;
 
 import org.openqa.selenium.By;
 
-import static com.epam.gomel.taf.framework.ui.Browser.getInstance;
+import static com.epam.gomel.taf.framework.ui.SeleniumUI.getInstance;
 
-public class NavigationBar {
+public class NavigationBar extends AbstractPage {
     //notifications
     private final By loginSuccessNotification = By.xpath("//div[@id='notification-root']//*[text()='Signed in successfully']");
     private final By logoutSuccessNotification = By.xpath("//div[@id='notification-root']//*[text()='You have been logged out']");
@@ -20,75 +20,75 @@ public class NavigationBar {
     private final By logoutButton = By.xpath("//div[text()='Logout']");
 
     public NavigationBar navigateDashboards() {
-        getInstance().click(linkDashboards);
+        uI.click(linkDashboards);
         return this;
     }
 
     public NavigationBar navigateLaunches() {
-        getInstance().click(linkLaunches);
+        uI.click(linkLaunches);
         return this;
     }
 
     public NavigationBar navigateFilters() {
-        getInstance().click(linkFilters);
+        uI.click(linkFilters);
         return this;
     }
 
     public NavigationBar navigateDebug() {
-        getInstance().click(linkDebug);
+        uI.click(linkDebug);
         return this;
     }
 
     public NavigationBar navigateMembers() {
-        getInstance().click(linkMembers);
+        uI.click(linkMembers);
         return this;
     }
 
     public NavigationBar navigateSettings() {
-        getInstance().click(linkSettings);
+        uI.click(linkSettings);
         return this;
     }
 
     public NavigationBar clickUserAvatar() {
-        if (getInstance().isVisible(loginSuccessNotification)) {
-            getInstance().click(loginSuccessNotification);
+        if (uI.isVisible(loginSuccessNotification)) {
+            uI.click(loginSuccessNotification);
         }
-        getInstance().click(userAvatar);
+        uI.click(userAvatar);
         return this;
     }
 
     public NavigationBar clickLogout() {
-        getInstance().click(logoutButton);
+        uI.click(logoutButton);
         return this;
     }
 
     public boolean isMainMenuItemsWorksCorrect() {
         navigateDashboards();
-        boolean checkDashboardURL = getInstance().getCurrentUrl().contains("default_personal/dashboard");
+        boolean checkDashboardURL = uI.getCurrentUrl().contains("default_personal/dashboard");
         navigateLaunches();
-        boolean checkLaunchesURL = getInstance().getCurrentUrl().contains("default_personal/launches/all");
+        boolean checkLaunchesURL = uI.getCurrentUrl().contains("default_personal/launches/all");
         navigateFilters();
-        boolean checkFiltersURL = getInstance().getCurrentUrl().contains("default_personal/filters");
+        boolean checkFiltersURL = uI.getCurrentUrl().contains("default_personal/filters");
         navigateDebug();
-        boolean checkDebugURL = getInstance().getCurrentUrl().contains("default_personal/userdebug/all");
+        boolean checkDebugURL = uI.getCurrentUrl().contains("default_personal/userdebug/all");
         navigateMembers();
-        boolean checkMembersURL = getInstance().getCurrentUrl().contains("default_personal/members");
+        boolean checkMembersURL = uI.getCurrentUrl().contains("default_personal/members");
         navigateSettings();
-        boolean checkSettingsURL = getInstance().getCurrentUrl().contains("default_personal/settings/general");
+        boolean checkSettingsURL = uI.getCurrentUrl().contains("default_personal/settings/general");
 
         return (checkDashboardURL && checkLaunchesURL && checkFiltersURL && checkDebugURL && checkMembersURL
                 && checkSettingsURL);
     }
 
     public boolean logInCheck() {
-        return getInstance().isVisible(loginSuccessNotification);
+        return uI.isVisible(loginSuccessNotification);
     }
 
     public boolean logOutCheck() {
-        return getInstance().isVisible(logoutSuccessNotification);
+        return uI.isVisible(logoutSuccessNotification);
     }
 
     public boolean logInFailCheck() {
-        return getInstance().isVisible(logoinFailNotification);
+        return uI.isVisible(logoinFailNotification);
     }
 }

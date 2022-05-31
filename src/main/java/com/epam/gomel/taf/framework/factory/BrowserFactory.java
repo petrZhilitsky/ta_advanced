@@ -10,7 +10,11 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxDriverLogLevel;
 import org.openqa.selenium.firefox.FirefoxOptions;
 
+import java.time.Duration;
+
 public class BrowserFactory {
+    private static final int WAIT_TIMEOUT_SECONDS = 10;
+
     private BrowserFactory() {
     }
 
@@ -30,6 +34,9 @@ public class BrowserFactory {
                 throw new WrongBrowserException("Browser is not supported or wasn't set");
             }
         }
+        webDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(WAIT_TIMEOUT_SECONDS));
+        webDriver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(WAIT_TIMEOUT_SECONDS));
+        webDriver.manage().timeouts().scriptTimeout(Duration.ofSeconds(WAIT_TIMEOUT_SECONDS));
         return webDriver;
     }
 

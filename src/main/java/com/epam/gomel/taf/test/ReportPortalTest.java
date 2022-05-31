@@ -2,7 +2,6 @@ package com.epam.gomel.taf.test;
 
 import com.epam.gomel.taf.framework.bo.User;
 import com.epam.gomel.taf.framework.factory.UserFactory;
-import com.epam.gomel.taf.framework.ui.Browser;
 import com.epam.gomel.taf.framework.utils.TestListener;
 import com.epam.gomel.taf.report_portal.service.LogInService;
 import com.epam.gomel.taf.report_portal.service.NavigationBarService;
@@ -12,6 +11,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
+import static com.epam.gomel.taf.report_portal.pages.AbstractPage.uI;
 import static org.testng.Assert.assertTrue;
 
 @Listeners({TestListener.class, ReportPortalTestNGListener.class})
@@ -33,6 +33,6 @@ public class ReportPortalTest {
     @AfterClass(alwaysRun = true)
     public void logoutAndCloseBrowser() {
         navigationBarService.logout(user.getLogin());
-        Browser.getInstance().stopBrowser();
+        uI.stopBrowser();
     }
 }
