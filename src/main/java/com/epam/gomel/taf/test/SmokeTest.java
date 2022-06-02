@@ -10,7 +10,7 @@ import com.epam.reportportal.testng.ReportPortalTestNGListener;
 import org.testng.annotations.*;
 import org.testng.asserts.SoftAssert;
 
-import static com.epam.gomel.taf.report_portal.pages.AbstractPage.uI;
+import static com.epam.gomel.taf.report_portal.pages.AbstractPage.*;
 import static org.testng.Assert.assertTrue;
 
 @Listeners({TestListener.class, ReportPortalTestNGListener.class})

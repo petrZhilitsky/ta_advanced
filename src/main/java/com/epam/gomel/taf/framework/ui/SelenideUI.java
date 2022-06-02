@@ -6,6 +6,7 @@ import org.openqa.selenium.*;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.ClickOptions.*;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static com.codeborne.selenide.WebDriverRunner.setWebDriver;
 import static com.epam.gomel.taf.framework.logger.Log.debug;
@@ -94,19 +95,13 @@ public class SelenideUI /*implements WrapsElement*/ {
     public void clickByJs(By by) {
         debug("Clicking on " + by);
         waitForVisibilityOfElement(by);
-        click(by);
-//        executeJavaScript("arguments[0].click();", by);
+        $(by).click(usingJavaScript());
     }
 
     public SelenideElement scrollToElement(By by) {
         debug("Scrolling to element " + by);
         waitForVisibilityOfElement(by);
-//        executeJavaScript("arguments[0].scrollIntoView(true);", by);
         return $(by).scrollTo();
     }
-
-//    @Override
-//    public WebDriver getWrappedDriver() {
-//        return null;
-//    }
+    
 }

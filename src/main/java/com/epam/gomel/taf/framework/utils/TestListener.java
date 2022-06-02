@@ -19,6 +19,7 @@ public class TestListener implements ITestListener {
     @Override
     public void onTestFailure(ITestResult iTestResult) {
         Log.error("Test " + iTestResult.getName() + " failed");
+        new ScreenshotUtils().takeScreenshot();
     }
 
     @Override

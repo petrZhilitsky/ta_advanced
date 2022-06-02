@@ -102,4 +102,17 @@ public class SeleniumUI implements WrapsDriver {
         debug("Wait for visibility of element " + by);
         new WebDriverWait(wrappedWebDriver, Duration.ofSeconds(timeout)).until(ExpectedConditions.visibilityOfElementLocated(by));
     }
+
+    public void clickByJs(By by) {
+        debug("Clicking on " + by);
+        JavascriptExecutor executor = (JavascriptExecutor) wrappedWebDriver;
+        executor.executeScript("arguments[0].click();", wrappedWebDriver.findElement(by));
+    }
+
+    public WebElement scrollToElementByJs(By by) {
+        debug("Scrolling to element " + by);
+        WebElement element = waitForVisibilityOfElement(by);
+        ((JavascriptExecutor) wrappedWebDriver).executeScript("arguments[0].scrollIntoView(true);", element);
+        return element;
+    }
 }
