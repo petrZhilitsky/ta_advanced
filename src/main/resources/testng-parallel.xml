@@ -1,5 +1,5 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-<suite name="ReportPortal" parallel="tests" thread-count="2">
+<suite name="ReportPortal" parallel="tests" thread-count="3">
     <listeners>
         <listener class-name="com.epam.gomel.taf.framework.utils.TestListener"/>
     </listeners>
@@ -14,6 +14,13 @@
     <test name="ReportPortal_parallel_test_2">
         <classes>
             <class name="com.epam.gomel.taf.test.SmokeTest">
+            </class>
+        </classes>
+    </test>
+
+    <test name="ReportPortal_parallel_test_3" junit="true">
+        <classes>
+            <class name="com.epam.gomel.taf.test.LaunchesTest">
             </class>
         </classes>
     </test>

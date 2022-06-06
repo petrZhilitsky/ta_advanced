@@ -1,13 +1,14 @@
 package com.epam.gomel.taf.report_portal.service;
 
 import com.epam.gomel.taf.framework.bo.*;
-import com.epam.gomel.taf.framework.logger.Log;
 import com.epam.gomel.taf.report_portal.pages.LogInPage;
 import com.epam.gomel.taf.report_portal.pages.NavigationBar;
 
+import static com.epam.gomel.taf.framework.logger.Log.debug;
+
 public class LogInService {
     public void logIn(User user) {
-        Log.debug("Logging in user " + user.toString());
+        debug("Logging in user " + user.toString());
         new LogInPage()
                 .openPage()
                 .inputLogin(user.getLogin())
@@ -16,12 +17,12 @@ public class LogInService {
     }
 
     public boolean isLogInFailed(String login) {
-        Log.debug("Checking user '" + login + "' failed to log in");
+        debug("Checking user '" + login + "' failed to log in");
         return new NavigationBar().logInFailCheck();
     }
 
     public boolean isLoggedOut(String login) {
-        Log.debug("Checking user '" + login + "' logged out");
+        debug("Checking user '" + login + "' logged out");
         return new NavigationBar().logOutCheck();
     }
 }

@@ -29,6 +29,9 @@ public class Parameters {
     @Parameter(names = {"--smoke", "-sm"}, description = "Path to Smoke test suite")
     private static String smokeSuite = "src/main/resources/testng-smoke.xml";
 
+    @Parameter(names = {"--junit", "-ju"}, description = "Path to Junit test suite")
+    private static String junitSuite = "src/main/resources/testng-junit.xml";
+
     @Parameter(names = {"--properties", "-pr"}, description = "Path to log4j.xml")
     private static String properties = "src/main/resources/log4j.xml";
 
@@ -73,6 +76,10 @@ public class Parameters {
 
     public String getSmokeSuite() {
         return smokeSuite;
+    }
+
+    public String getJunitSuite() {
+        return junitSuite;
     }
 
     public static class BrowserTypeConverter implements IStringConverter<BrowserType> {

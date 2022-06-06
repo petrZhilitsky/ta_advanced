@@ -3,27 +3,30 @@ package com.epam.gomel.taf.framework.runner;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.ParameterException;
 import com.epam.gomel.taf.framework.factory.SuiteFactory;
-import com.epam.gomel.taf.framework.logger.Log;
 import org.apache.log4j.PropertyConfigurator;
+
+import static com.epam.gomel.taf.framework.logger.Log.info;
+import static com.epam.gomel.taf.framework.logger.Log.debug;
+import static com.epam.gomel.taf.framework.logger.Log.error;
 
 public class TestRunner {
     public static void main(String[] args) {
-        Log.info("Parse CLIs");
+        info("Parse CLIs");
         parseCLI(args);
-        Log.info("Set log4j.xml");
+        info("Set log4j.xml");
         PropertyConfigurator.configure(Parameters.instance().getProperties());
-        Log.info("Start app");
+        info("Start app");
         SuiteFactory.getSuite().run();
-        Log.info("Finish app");
+        info("Finish app");
     }
 
     private static void parseCLI(String[] args) {
-        Log.debug("Parsing CLIs using JCommander");
+        debug("Parsing CLIs using JCommander");
         JCommander jCommander = new JCommander(Parameters.instance());
         try {
             jCommander.parse(args);
         } catch (ParameterException e) {
-            Log.error(e.getMessage());
+            error(e.getMessage());
             System.exit(1);
         }
         if (Parameters.instance().isHelp()) {

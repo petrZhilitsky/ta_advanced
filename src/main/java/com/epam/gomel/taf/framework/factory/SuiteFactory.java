@@ -15,6 +15,7 @@ public class SuiteFactory {
             case ALL -> testNG.setTestSuites(Collections.singletonList(Parameters.instance().getAllSuite()));
             case PARALLEL -> testNG.setTestSuites(Collections.singletonList(Parameters.instance().getParallelSuite()));
             case SMOKE -> testNG.setTestSuites(Collections.singletonList(Parameters.instance().getSmokeSuite()));
+            case JUNIT -> testNG.setTestSuites(Collections.singletonList(Parameters.instance().getJunitSuite()));
             default -> testNG.setTestSuites(Collections.singletonList(Parameters.instance().getAllSuite()));
         }
         return testNG;
