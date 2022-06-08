@@ -26,9 +26,7 @@ public class BrowserFactory {
                 webDriver = new FirefoxDriver(configureFirefox(Parameters.instance().isHeadless()));
                 webDriver.manage().window().maximize();
             }
-            default -> {
-                throw new WrongBrowserException("Browser is not supported or wasn't set");
-            }
+            default -> throw new WrongBrowserException("Browser is not supported or wasn't set");
         }
         return webDriver;
     }

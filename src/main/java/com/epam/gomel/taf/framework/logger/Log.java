@@ -3,7 +3,7 @@ package com.epam.gomel.taf.framework.logger;
 import org.apache.log4j.Logger;
 
 public class Log {
-    public final static Logger logger = Logger.getLogger("myLogger");
+    public static final Logger logger = Logger.getLogger("myLogger");
 
     public static void debug(String message) {
         logger.debug(message);
