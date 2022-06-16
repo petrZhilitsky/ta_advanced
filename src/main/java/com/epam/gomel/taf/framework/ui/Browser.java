@@ -103,4 +103,12 @@ public class Browser implements WrapsDriver {
         Log.debug("Wait for visibility of element " + by);
         return new WebDriverWait(wrappedWebDriver, Duration.ofSeconds(timeout)).until(ExpectedConditions.visibilityOfElementLocated(by));
     }
+
+    public WebElement scrollToElementByJs(By by) {
+        Log.debug("Scrolling to element " + by);
+        WebElement element = waitForVisibilityOfElement(by);
+        ((JavascriptExecutor) wrappedWebDriver).executeScript("arguments[0].scrollIntoView(true);", element);
+        return element;
+    }
+
 }

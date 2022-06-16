@@ -12,6 +12,9 @@ public class LaunchesPage {
     private final By launchTitleBreadcrumb = By.xpath("(//span[contains(@class,'breadcrumb__link-item')])[2]");
 
     public LaunchesPage clickLaunchTitleByRow(int row) {
+        if (row > 3) {
+            getInstance().scrollToElementByJs(By.xpath(String.format(LAUNCH_TITLE_CELL_PATTERN, row)));
+        }
         getInstance().click(By.xpath(String.format(LAUNCH_TITLE_CELL_PATTERN, row)));
         return this;
     }

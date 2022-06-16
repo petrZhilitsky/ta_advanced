@@ -6,17 +6,17 @@ import com.epam.gomel.taf.report_portal.pages.NavigationBar;
 import static com.epam.gomel.taf.framework.logger.Log.debug;
 
 public class LaunchesService {
-    public boolean isLaunchesOverviewContainsAllCounters() {
-        debug("Checking test launch counters on Launches overview");
+    public boolean isLaunchesOverviewContainsAllCounters(int row) {
+        debug("Checking test launch " + row + " counters on Launches overview");
         new NavigationBar().navigateLaunches();
-        return new LaunchesPage().isCountersVisibleByRow(1);
+        return new LaunchesPage().isCountersVisibleByRow(row);
     }
 
-    public boolean isLaunchContainsAllCounters() {
-        debug("Checking test launch counters on Launch details");
+    public boolean isLaunchContainsAllCounters(int row) {
+        debug("Checking test launch counters on Launch details " + row);
         new NavigationBar().navigateLaunches();
         return new LaunchesPage()
-                .clickLaunchTitleByRow(1)
+                .clickLaunchTitleByRow(row)
                 .launchTitleBreadcrumbShouldBeVisible()
                 .isCountersVisibleByRow(1);
     }
