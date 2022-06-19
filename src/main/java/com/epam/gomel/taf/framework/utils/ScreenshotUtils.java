@@ -1,7 +1,6 @@
 package com.epam.gomel.taf.framework.utils;
 
 import com.epam.gomel.taf.framework.factory.BrowserFactory;
-import com.epam.gomel.taf.report_portal.pages.AbstractPage;
 import ru.yandex.qatools.ashot.AShot;
 import ru.yandex.qatools.ashot.Screenshot;
 import ru.yandex.qatools.ashot.shooting.ShootingStrategies;

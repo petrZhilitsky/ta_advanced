@@ -1,31 +1,31 @@
-package com.epam.gomel.taf.report_portal.pages;
+package com.epam.gomel.taf.report_portal.pages.selenide;
 
 import com.epam.gomel.taf.framework.factory.Constants;
 import org.openqa.selenium.By;
 
-import static com.epam.gomel.taf.framework.ui.SeleniumUI.getInstance;
+import static com.epam.gomel.taf.framework.ui.SelenideUI.getInstance;
 
-public class LogInPage {
+public class LogInPageSelenide {
     private final By loginInput = By.xpath("//input[@placeholder='Login']");
     private final By passwordInput = By.xpath("//input[@placeholder='Password']");
     private final By confirmButton = By.xpath("//button[@type='submit' and text()='Login']");
 
-    public LogInPage openPage() {
+    public LogInPageSelenide openPage() {
         getInstance().get(Constants.RP_URL_LOG_IN);
         return this;
     }
 
-    public LogInPage inputLogin(String login) {
+    public LogInPageSelenide inputLogin(String login) {
         getInstance().type(loginInput, login);
         return this;
     }
 
-    public LogInPage inputPassword(String password) {
+    public LogInPageSelenide inputPassword(String password) {
         getInstance().type(passwordInput, password);
         return this;
     }
 
-    public LogInPage clickConfirm() {
+    public LogInPageSelenide clickConfirm() {
         getInstance().click(confirmButton);
         return this;
     }

@@ -4,7 +4,7 @@ import org.openqa.selenium.By;
 
 import static com.epam.gomel.taf.framework.ui.SeleniumUI.getInstance;
 
-public class NavigationBar extends AbstractPage {
+public class NavigationBar {
     //notifications
     private final By loginSuccessNotification = By.xpath("//div[@id='notification-root']//*[text()='Signed in successfully']");
     private final By logoutSuccessNotification = By.xpath("//div[@id='notification-root']//*[text()='You have been logged out']");
@@ -20,75 +20,75 @@ public class NavigationBar extends AbstractPage {
     private final By logoutButton = By.xpath("//div[text()='Logout']");
 
     public NavigationBar navigateDashboards() {
-        uI.click(linkDashboards);
+        getInstance().click(linkDashboards);
         return this;
     }
 
     public NavigationBar navigateLaunches() {
-        uI.click(linkLaunches);
+        getInstance().click(linkLaunches);
         return this;
     }
 
     public NavigationBar navigateFilters() {
-        uI.click(linkFilters);
+        getInstance().click(linkFilters);
         return this;
     }
 
     public NavigationBar navigateDebug() {
-        uI.click(linkDebug);
+        getInstance().click(linkDebug);
         return this;
     }
 
     public NavigationBar navigateMembers() {
-        uI.click(linkMembers);
+        getInstance().click(linkMembers);
         return this;
     }
 
     public NavigationBar navigateSettings() {
-        uI.click(linkSettings);
+        getInstance().click(linkSettings);
         return this;
     }
 
     public NavigationBar clickUserAvatar() {
-        if (uI.isVisible(loginSuccessNotification)) {
-            uI.click(loginSuccessNotification);
+        if (getInstance().isVisible(loginSuccessNotification)) {
+            getInstance().click(loginSuccessNotification);
         }
-        uI.click(userAvatar);
+        getInstance().click(userAvatar);
         return this;
     }
 
     public NavigationBar clickLogout() {
-        uI.click(logoutButton);
+        getInstance().click(logoutButton);
         return this;
     }
 
     public boolean isMainMenuItemsWorksCorrect() {
         navigateDashboards();
-        boolean checkDashboardURL = uI.getCurrentUrl().contains("default_personal/dashboard");
+        boolean checkDashboardURL = getInstance().getCurrentUrl().contains("default_personal/dashboard");
         navigateLaunches();
-        boolean checkLaunchesURL = uI.getCurrentUrl().contains("default_personal/launches/all");
+        boolean checkLaunchesURL = getInstance().getCurrentUrl().contains("default_personal/launches/all");
         navigateFilters();
-        boolean checkFiltersURL = uI.getCurrentUrl().contains("default_personal/filters");
+        boolean checkFiltersURL = getInstance().getCurrentUrl().contains("default_personal/filters");
         navigateDebug();
-        boolean checkDebugURL = uI.getCurrentUrl().contains("default_personal/userdebug/all");
+        boolean checkDebugURL = getInstance().getCurrentUrl().contains("default_personal/userdebug/all");
         navigateMembers();
-        boolean checkMembersURL = uI.getCurrentUrl().contains("default_personal/members");
+        boolean checkMembersURL = getInstance().getCurrentUrl().contains("default_personal/members");
         navigateSettings();
-        boolean checkSettingsURL = uI.getCurrentUrl().contains("default_personal/settings/general");
+        boolean checkSettingsURL = getInstance().getCurrentUrl().contains("default_personal/settings/general");
 
         return (checkDashboardURL && checkLaunchesURL && checkFiltersURL && checkDebugURL && checkMembersURL
                 && checkSettingsURL);
     }
 
     public boolean logInCheck() {
-        return uI.isVisible(loginSuccessNotification);
+        return getInstance().isVisible(loginSuccessNotification);
     }
 
     public boolean logOutCheck() {
-        return uI.isVisible(logoutSuccessNotification);
+        return getInstance().isVisible(logoutSuccessNotification);
     }
 
     public boolean logInFailCheck() {
-        return uI.isVisible(logoinFailNotification);
+        return getInstance().isVisible(logoinFailNotification);
     }
 }

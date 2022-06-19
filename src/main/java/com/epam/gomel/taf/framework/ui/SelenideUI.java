@@ -3,44 +3,39 @@ package com.epam.gomel.taf.framework.ui;
 import com.codeborne.selenide.*;
 import com.epam.gomel.taf.framework.factory.BrowserFactory;
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 
-import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.ClickOptions.*;
-import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static com.codeborne.selenide.WebDriverRunner.setWebDriver;
 import static com.epam.gomel.taf.framework.logger.Log.debug;
 import static com.epam.gomel.taf.framework.logger.Log.error;
 
-public class SelenideUI /*implements WrapsElement*/ {
-    private static final int WAIT_TIMEOUT_MILLIS = 10000;
-//    private static final ThreadLocal<SelenideUI> instance = new ThreadLocal<>();
-//    private WebElement wrappedWebElement;
+public class SelenideUI {
+    private static final ThreadLocal<SelenideUI> instance = new ThreadLocal<>();
+    private WebDriver wrappedWebDriver;
 
     public SelenideUI() {
-        setWebDriver(BrowserFactory.getBrowser());
+        wrappedWebDriver = BrowserFactory.getBrowser();
+        setWebDriver(wrappedWebDriver);
     }
 
-//    public static synchronized SelenideUI getInstance() {
-//        if (instance.get() == null) {
-//            instance.set(new SelenideUI());
-//        }
-//        return instance.get();
-//    }
-
-//    public WebElement getWrappedElement() {
-//        return wrappedWebElement;
-//    }
+    public static synchronized SelenideUI getInstance() {
+        if (instance.get() == null) {
+            instance.set(new SelenideUI());
+        }
+        return instance.get();
+    }
 
     public void stopBrowser() {
         debug("Close browser");
         try {
-            getWebDriver().quit();
+            Selenide.closeWebDriver();
         } catch (WebDriverException e) {
             error(e.getMessage());
-        } /*finally {
+        } finally {
             instance.remove();
-        }*/
+        }
     }
 
     public void get(String url) {
@@ -48,25 +43,14 @@ public class SelenideUI /*implements WrapsElement*/ {
         open(url);
     }
 
-    public String getCurrentUrl() {
-        String url = getWebDriver().getCurrentUrl();
-        debug("Getting current page URL " + url);
-        return url;
-    }
-
     public void click(By by) {
         debug("Clicking on " + by);
-        $(waitForVisibilityOfElement(by)).click();
-    }
-
-    public void doubleClick(By by) {
-        debug("Double click " + by);
-        actions().doubleClick(waitForVisibilityOfElement(by)).perform();
+        $(by).click();
     }
 
     public void type(By by, String text) {
         debug("Typing " + text + " into " + by);
-        $(waitForVisibilityOfElement(by)).setValue(text);
+        $(by).sendKeys(text);
     }
 
     public void clear(By by) {
@@ -84,24 +68,25 @@ public class SelenideUI /*implements WrapsElement*/ {
         return $(by).isDisplayed();
     }
 
-    public SelenideElement waitForVisibilityOfElement(By by) {
-        return $(by).waitUntil(visible, WAIT_TIMEOUT_MILLIS);
-    }
-
-    public SelenideElement waitForVisibilityOfElement(By by, long timeout) {
-        return $(by).waitUntil(visible, timeout);
-    }
 
     public void clickByJs(By by) {
         debug("Clicking on " + by);
-        waitForVisibilityOfElement(by);
         $(by).click(usingJavaScript());
     }
 
     public SelenideElement scrollToElement(By by) {
         debug("Scrolling to element " + by);
-        waitForVisibilityOfElement(by);
         return $(by).scrollTo();
     }
-    
+
+    public void dragAndDrop(By by, int xOffset, int yOffset) {
+        debug("Dragging " + by + " to (" + xOffset + ";" + yOffset + ")");
+        Actions actions = new Actions(wrappedWebDriver);
+        actions.dragAndDropBy(wrappedWebDriver.findElement(by), xOffset, yOffset).perform();
+    }
+
+    public String getElementAttribute(By by, String attribute) {
+        return $(by).attr(attribute);
+
+    }
 }
