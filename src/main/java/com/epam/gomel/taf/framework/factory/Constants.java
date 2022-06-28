@@ -6,4 +6,5 @@ public class Constants {
     public static final String ADMIN_LOGIN = Configurations.getInstance().getProperty("admin.login");
     public static final String ADMIN_PASSWORD = Configurations.getInstance().getProperty("admin.password");
     public static final String RP_URL_LOG_IN = Configurations.getInstance().getProperty("rp.url");
+    public static final String API_TOKEN = Configurations.getInstance().getProperty("rp.token");
 }
