@@ -2,7 +2,6 @@ package com.epam.gomel.taf.test;
 
 import com.epam.gomel.taf.framework.bo.APIDashboard;
 import com.epam.gomel.taf.framework.bo.APIWidget;
-import com.epam.gomel.taf.framework.logger.Log;
 import com.epam.gomel.taf.report_portal.api.APIRequests;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;

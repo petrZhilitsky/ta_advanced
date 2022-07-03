@@ -8,7 +8,9 @@ public class NavigationBar {
     //notifications
     private final By loginSuccessNotification = By.xpath("//div[@id='notification-root']//*[text()='Signed in successfully']");
     private final By logoutSuccessNotification = By.xpath("//div[@id='notification-root']//*[text()='You have been logged out']");
-    private final By logoinFailNotification = By.xpath("//div[@id='notification-root']//*[contains(text(),'Bad credentials')]");
+    private final By loginFailNotification = By.xpath("//div[@id='notification-root']//*[contains(text(),'Bad credentials')]");
+    private final By dashboardAddedNotification = By.xpath("//div[@id='notification-root']//*[contains(text(),'Dashboard has been added')]");
+    private final By dashboardDeletedNotification = By.xpath("//div[@id='notification-root']//*[contains(text(),'Dashboard has been deleted')]");
     //navigation sidebar menu
     private final By linkDashboards = By.xpath("//a[@href='#default_personal/dashboard']");
     private final By linkLaunches = By.xpath("//a[@href='#default_personal/launches']");
@@ -89,6 +91,14 @@ public class NavigationBar {
     }
 
     public boolean logInFailCheck() {
-        return getInstance().isVisible(logoinFailNotification);
+        return getInstance().isVisible(loginFailNotification);
+    }
+
+    public boolean dashboardAddedCheck() {
+        return getInstance().isVisible(dashboardAddedNotification);
+    }
+
+    public boolean dashboardDeletedCheck() {
+        return getInstance().isVisible(dashboardDeletedNotification);
     }
 }
