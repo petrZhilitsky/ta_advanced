@@ -3,13 +3,17 @@ package com.epam.gomel.taf.framework.factory;
 import com.epam.gomel.taf.framework.exception.WrongBrowserException;
 import com.epam.gomel.taf.framework.runner.Parameters;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import lombok.SneakyThrows;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxDriverLogLevel;
 import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
+import java.net.URL;
 import java.time.Duration;
 
 public class BrowserFactory {
@@ -18,6 +22,7 @@ public class BrowserFactory {
     private BrowserFactory() {
     }
 
+    @SneakyThrows
     public static WebDriver getBrowser() {
         WebDriver webDriver;
         switch (Parameters.instance().getBrowserType()) {
@@ -30,9 +35,14 @@ public class BrowserFactory {
                 webDriver = new FirefoxDriver(configureFirefox(Parameters.instance().isHeadless()));
                 webDriver.manage().window().maximize();
             }
-            default -> {
-                throw new WrongBrowserException("Browser is not supported or wasn't set");
+            case REMOTE_CHROME -> {
+                webDriver = new RemoteWebDriver(new URL(Constants.SAUCELABS_URL), sauceLabsOptions("Chrome"));
             }
+            case REMOTE_FIREFOX -> {
+                webDriver = new RemoteWebDriver(new URL(Constants.SAUCELABS_URL), sauceLabsOptions("Firefox"));
+            }
+            default -> throw new WrongBrowserException("Browser is not supported or wasn't set");
+
         }
         webDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(WAIT_TIMEOUT_SECONDS));
         webDriver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(WAIT_TIMEOUT_SECONDS));
@@ -59,5 +69,14 @@ public class BrowserFactory {
             options.setHeadless(true);
         }
         return options;
+    }
+
+    private static DesiredCapabilities sauceLabsOptions(String browserName) {
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setCapability("browserName", browserName);
+        capabilities.setCapability("platform", "Windows 10");
+        capabilities.setCapability("version", "latest");
+        capabilities.setCapability("screenResolution", "1440x900");
+        return capabilities;
     }
 }

@@ -1,30 +1,35 @@
 package com.epam.gomel.taf.framework.utils;
 
-import com.epam.gomel.taf.framework.logger.Log;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
+import static com.epam.gomel.taf.framework.logger.Log.debug;
+import static com.epam.gomel.taf.framework.logger.Log.error;
+
 public class TestListener implements ITestListener {
     @Override
     public void onTestStart(ITestResult iTestResult) {
-        Log.debug("Start test " + iTestResult.getName());
+        debug("Start test " + iTestResult.getName());
+        JiraService.updateIssueStatus("TAF-1", "In Progress");
     }
 
     @Override
     public void onTestSuccess(ITestResult iTestResult) {
-        Log.debug("Test " + iTestResult.getName() + " succeeded");
+        debug("Test " + iTestResult.getName() + " succeeded");
+        JiraService.updateIssueStatus("TAF-1", "Done");
     }
 
     @Override
     public void onTestFailure(ITestResult iTestResult) {
-        Log.error("Test " + iTestResult.getName() + " failed");
+        error("Test " + iTestResult.getName() + " failed");
+        JiraService.updateIssueStatus("TAF-1", "In Review");
         new ScreenshotUtils().takeScreenshot();
     }
 
     @Override
     public void onTestSkipped(ITestResult iTestResult) {
-        Log.error("Test " + iTestResult.getName() + " skipped");
+        error("Test " + iTestResult.getName() + " skipped");
     }
 
     @Override
@@ -33,11 +38,15 @@ public class TestListener implements ITestListener {
 
     @Override
     public void onStart(ITestContext iTestContext) {
-        Log.debug(iTestContext.getName() + " started");
+        String testStarted = iTestContext.getName() + " started";
+        debug(testStarted);
+        SlackService.send(testStarted);
     }
 
     @Override
     public void onFinish(ITestContext iTestContext) {
-        Log.debug(iTestContext.getName() + " stopped");
+        String testFinished = iTestContext.getName() + " stopped";
+        debug(testFinished);
+        SlackService.send(testFinished);
     }
 }
