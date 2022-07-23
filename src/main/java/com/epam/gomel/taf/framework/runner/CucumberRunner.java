@@ -7,8 +7,8 @@ import org.junit.runner.RunWith;
 @RunWith(Cucumber.class)
 @CucumberOptions(
         features = "src/main/resources/features",
-        glue = "com.epam.gomel.taf.test.steps",
-        tags = "@cucumber",
+        glue = "com.epam.gomel.taf.test.stepsBDD",
+        tags = "@smoke",
         plugin = {
                 "pretty", "json:target/Cucumber.json",
                 "html:target/cucumber-html-report"

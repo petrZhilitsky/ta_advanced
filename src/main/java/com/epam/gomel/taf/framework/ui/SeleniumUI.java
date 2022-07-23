@@ -84,6 +84,11 @@ public class SeleniumUI implements WrapsDriver {
         type(by, value);
     }
 
+    public String getText(By by) {
+        debug("Getting text from " + by);
+        return waitForVisibilityOfElement(by).getText();
+    }
+
     public boolean isVisible(By by) {
         try {
             waitForVisibilityOfElement(by);
